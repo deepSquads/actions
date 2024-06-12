@@ -1,0 +1,27 @@
+name: Update open-sauced-goals
+on:
+  workflow_dispatch:
+
+jobs:
+  update-user-flows:
+    name: run update-user-flows
+    runs-on: ubuntu-latest
+    steps:
+      - name: "☁️ checkout repository"
+        uses: actions/checkout@v2
+
+      - name: "🔧 setup node"
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 16
+
+      - name: "🔧 install npm@latest"
+        run: npm i -g npm@latest
+
+      - name: "📦 install dependencies"
+        uses: bahmutov/npm-install@v1
+
+      - run: node workflow-updater/update-all-worlflows.js
+        env:
+          OPEN_SAUCED_APP_ID: ${{ secrets.OPEN_SAUCED_APP_ID }}
+          OPEN_SAUCED_PRIVATE_KEY: ${{ secrets.OPEN_SAUCED_PRIVATE_KEY }}

@@ -1,0 +1,47 @@
+{
+  "name": "actions",
+  "description": "The open-sauced actions",
+  "keywords": [],
+  "version": "1.0.0",
+  "author": "Brian 'bdougie' Douglas <ilikerobot@gmail.com>",
+  "private": true,
+  "license": "MIT",
+  "main": "index.js",
+  "type": "module",
+  "homepage": "https://github.com/open-sauced/actions#readme",
+  "bugs": {
+    "url": "https://github.com/open-sauced/actions/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/open-sauced/actions.git"
+  },
+  "engines": {
+    "node": ">= 16.7.0",
+    "npm": ">= 8.0.0"
+  },
+  "scripts": {
+    "push": "npx @open-sauced/conventional-commit",
+    "populate": "node --experimental-json-modules ./hot-supabase/user-stars.js",
+    "populate:dev": "node --experimental-json-modules -r dotenv/config ./hot-supabase/user-stars.js",
+    "seed": "node --experimental-json-modules ./hot-supabase/seed.js",
+    "seed:dev": "node --experimental-json-modules -r dotenv/config ./hot-supabase/seed.js",
+    "contrib": "node --experimental-json-modules ./hot-supabase/contributors.js",
+    "contrib:dev": "node --experimental-json-modules -r dotenv/config ./hot-supabase/contributors.js",
+    "backfill": "node --experimental-json-modules ./hot-supabase/backfill-github-users.js",
+    "backfill:dev": "node --experimental-json-modules -r dotenv/config ./hot-supabase/backfill-github-users.js"
+  },
+  "dependencies": {
+    "@antfu/utils": "^0.5.2",
+    "@supabase/supabase-js": "^1.35.3",
+    "cfonts": "^2.10.1",
+    "csv-stringify": "^6.0.5",
+    "node-fetch": "^3.2.4",
+    "octokit": "^3.1.2"
+  },
+  "devDependencies": {
+    "@open-sauced/check-engines": "^1.2.0",
+    "@open-sauced/conventional-commit": "^1.0.1",
+    "dotenv": "^16.0.1"
+  }
+}

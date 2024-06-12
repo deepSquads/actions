@@ -1,0 +1,42 @@
+name: Backup database cron
+on:
+  schedule:
+    - cron: '42 */2 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: supabase-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  seed-the-supabase:
+    name: run seed-the-supabase
+    runs-on: ubuntu-latest
+    steps:
+      - name: "☁️ checkout repository"
+        uses: actions/checkout@v2
+
+      - name: "🔧 setup node"
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 16
+
+      - name: "🔧 install npm@latest"
+        run: npm i -g npm@latest
+
+      - name: "📦 install dependencies"
+        uses: bahmutov/npm-install@v1
+
+      - name: "🔍 seed supabase"
+        run: npm run seed
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+
+      - name: "🚀 Commit changes"
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: ./hot-supabase/seed/
+          commit_message: "chore: seed supabase data [skip ci]"
+          commit_user_name: open-sauced[bot]
+          commit_user_email: 63161813+open-sauced[bot]@users.noreply.github.com

@@ -1,0 +1,11 @@
+name: goals-caching
+description: This is an action cache open-sauced-goals to data.json and stars.json
+author: Brian Douglas
+branding:
+  icon: 'thumbs-up'
+  color: 'white'
+
+runs: 
+  using: 'docker'
+  image: 'Dockerfile'
+
